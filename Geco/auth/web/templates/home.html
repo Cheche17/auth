@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="text-center">
+        <h1>Welcome to My Site</h1>
+        {% if user.is_authenticated %}
+            <p>Hello, {{ user.username }}!</p>
+            {% if not user.profile.email_verified %}
+                <div class="alert alert-warning">
+                    Please verify your email address. Check your inbox for the verification link.
+                </div>
+            {% endif %}
+        {% else %}
+            <p>Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a>.</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+<!-- templates/users/login.

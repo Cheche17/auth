@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.contrib.auth import logout
 from django.conf import settings
 from .forms import UserRegistrationForm, UserUpdateForm, ContactForm
 from django.contrib.auth import login
@@ -33,6 +34,13 @@ def signup(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'web/signup.html', {'form': form})
+
+
+@login_required
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'You have been successfully logged out!')
+    return redirect('home')
 
 @login_required
 def profile(request):
